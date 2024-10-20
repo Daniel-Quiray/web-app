@@ -1,3 +1,4 @@
+// Import necessary functions from Vue Router
 import { createRouter, createWebHistory } from 'vue-router';
 
 // Import your components for the different pages
@@ -7,43 +8,43 @@ import ShowcasePage from '../views/ShowcasePage.vue';
 import ContactPage from '../views/ContactPage.vue';
 import CreativePage from '../views/CreativePage.vue';
 
-// Define your routes
+// Define your routes for the application
 const routes = [
   {
-    path: '/',
-    redirect: '/login' // Redirect root path to login page
+    path: '/', // Root path
+    redirect: '/login' // Redirect root path to the login page
   },
   {
-    path: '/login',
-    name: 'LoginPage',
-    component: LoginPage
+    path: '/login', // Login page path
+    name: 'LoginPage', // Name of the route
+    component: LoginPage // Component to render for this route
   },
   {
-    path: '/portfolio/profile',
-    name: 'ProfilePage',
-    component: ProfilePage
+    path: '/portfolio/profile', // Profile page path
+    name: 'ProfilePage', // Name of the route
+    component: ProfilePage // Component to render for this route
   },
   {
-    path: '/portfolio/showcase',
-    name: 'ShowcasePage',
-    component: ShowcasePage
+    path: '/portfolio/showcase', // Showcase page path
+    name: 'ShowcasePage', // Name of the route
+    component: ShowcasePage // Component to render for this route
   },
   {
-    path: '/portfolio/contact',
-    name: 'ContactPage',
-    component: ContactPage
+    path: '/portfolio/contact', // Contact page path
+    name: 'ContactPage', // Name of the route
+    component: ContactPage // Component to render for this route
   },
   {
-    path: '/portfolio/creative',
-    name: 'CreativePage',
-    component: CreativePage
+    path: '/portfolio/creative', // Creative page path
+    name: 'CreativePage', // Name of the route
+    component: CreativePage // Component to render for this route
   }
 ];
 
-// Create a new Vue Router instance
+// Create a new Vue Router instance with history mode
 const router = createRouter({
   history: createWebHistory(), // Use createWebHistory for clean URLs
-  routes
+  routes // Assign the defined routes to the router
 });
 
 // Export the router to use it in your Vue instance

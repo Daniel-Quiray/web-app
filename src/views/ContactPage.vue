@@ -2,7 +2,7 @@
   <div class="contact-page">
     <div class="form-container">
       <h1>Contact Us</h1>
-      <form @submit.prevent="submitForm">
+      <form @submit.prevent="submitForm"> <!-- Prevent default form submission -->
         <div class="form-group">
           <input id="name" v-model="name" placeholder="Enter your name" required class="input-box" />
         </div>
@@ -16,17 +16,17 @@
         <button type="submit" class="send-button">Send Message</button>
       </form>
       <transition name="fade">
-        <p v-if="successMessage" class="success-message">{{ successMessage }}</p>
+        <p v-if="successMessage" class="success-message">{{ successMessage }}</p> <!-- Display success message if exists -->
       </transition>
     </div>
 
-    <!-- Sent Messages Button -->
+    <!-- Button to view sent messages -->
     <button class="sent-messages-button" @click="handleSentMessagesClick">
       <span v-if="sentMessages.length > 0" class="alert-sign" :class="{ fadeOut: fadeOutCount }">{{ sentMessages.length }}</span>
       Sent Messages 
     </button>
 
-    <!-- Drawer for Sent Messages -->
+    <!-- Drawer for displaying sent messages -->
     <div class="sent-messages-drawer" v-if="drawerOpen">
       <h2>Sent Messages</h2>
       <div v-for="(msg, index) in sentMessages" :key="index" class="sent-message">
@@ -43,10 +43,10 @@
 export default {
   data() {
     return {
-      name: '',
-      email: '',
-      message: '',
-      successMessage: '',
+      name: '', // User's name
+      email: '', // User's email
+      message: '', // User's message
+      successMessage: '', // Message to show upon successful submission
       sentMessages: [], // Store sent messages
       drawerOpen: false, // Control the visibility of the drawer
       fadeOutCount: false, // Control the fade-out effect of the alert count
@@ -54,6 +54,7 @@ export default {
     };
   },
   methods: {
+    // Handle form submission
     submitForm() {
       console.log("Form submitted:", {
         name: this.name,
@@ -66,9 +67,9 @@ export default {
         // If submission is successful
         this.successMessage = 'Your message has been sent successfully!';
         this.sentMessages.push({ name: this.name, email: this.email, message: this.message }); // Add to sent messages
-        this.name = '';
-        this.email = '';
-        this.message = '';
+        this.name = ''; // Clear the name input
+        this.email = ''; // Clear the email input
+        this.message = ''; // Clear the message input
 
         // Remove the success message after 1 second
         setTimeout(() => {
@@ -76,18 +77,20 @@ export default {
         }, 1000);
       }, 1000); // Simulating a delay of 1 second
     },
+    // Handle click on the Sent Messages button
     handleSentMessagesClick() {
-      this.toggleDrawer();
+      this.toggleDrawer(); // Toggle the drawer visibility
       if (this.sentMessages.length > 0) {
         this.fadeOutCount = true; // Trigger fade-out effect
         // Show alert count again after a delay
         setTimeout(() => {
           this.fadeOutCount = false; // Reset fade-out state
-        }, 1000); // 1 second delay before showing again
+        }, 1000); // 1 second delay
       }
     },
+    // Handle closing the drawer
     handleCloseDrawer() {
-      this.toggleDrawer();
+      this.toggleDrawer(); // Toggle the drawer visibility
       this.fadeOutCount = true; // Trigger fade-out effect
       this.showAlertCount = false; // Completely hide the count
       // Reset fade-out state after a delay
@@ -95,6 +98,7 @@ export default {
         this.fadeOutCount = false; // Reset fade-out state
       }, 1000); // 1 second delay
     },
+    // Toggle the visibility of the drawer
     toggleDrawer() {
       this.drawerOpen = !this.drawerOpen; // Toggle the drawer visibility
     },
@@ -105,22 +109,22 @@ export default {
 <style scoped>
 .contact-page {
   background-image: url('@/assets/outsidebg.jpg'); /* Path to your background image */
-  background-size: cover;
-  background-position: center;
+  background-size: cover; /* Cover the entire background */
+  background-position: center; /* Center the background image */
   height: 100vh; /* Full viewport height */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 50px;
+  display: flex; /* Use flexbox for layout */
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  padding: 50px; /* Padding for the container */
   position: relative; /* Added position relative for drawer positioning */
 }
 
 .form-container {
   background: linear-gradient(135deg, rgba(106, 154, 176, 0.8), rgba(58, 109, 140, 0.8), rgba(0, 31, 63, 0.8)); /* Gradient with semi-transparency */
-  padding: 50px;
+  padding: 50px; /* Padding for the form container */
   border-radius: 10px; /* Rounded edges */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Slightly darker shadow */
-  width: 100%; /* Adjust width as needed */
+  width: 100%; /* Full width */
   max-width: 500px; /* Maximum width for the form */
   text-align: center; /* Center text in the container */
   animation: fadeIn 1s ease; /* Fade-in animation */
@@ -128,24 +132,24 @@ export default {
 
 h1 {
   color: #001F3F; /* Change title color */
-  font-size: 50px;
-  font-weight: bolder;
-  margin-bottom: 50px;
+  font-size: 50px; /* Title font size */
+  font-weight: bolder; /* Bold title */
+  margin-bottom: 50px; /* Space below the title */
 }
 
 .form-group {
-  margin-bottom: 10px;
+  margin-bottom: 10px; /* Space between form groups */
   text-align: left; /* Align content to the left */
 }
 
 .input-box {
-  width: 100%;
-  padding: 12px; /* Increase padding for better usability */
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  margin-bottom: 10px;
-  font-size: 18px;
-  color: #333;
+  width: 100%; /* Full width for input */
+  padding: 12px; /* Padding for better usability */
+  border: 1px solid #ccc; /* Light border */
+  border-radius: 8px; /* Rounded edges */
+  margin-bottom: 10px; /* Space below input */
+  font-size: 18px; /* Font size for input */
+  color: #333; /* Input text color */
   background-color: #E5D9F2; /* Background for the input box */
 }
 
@@ -177,16 +181,16 @@ textarea#message {
 }
 
 .send-button {
-  background-color: #3A6D8C;
-  color: #FFFBE6;
+  background-color: #3A6D8C; /* Button background color */
+  color: #FFFBE6; /* Button text color */
   font-size: 16px; /* Adjusted font size */
-  font-weight: bold;
-  padding: 10px 15px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-  width: 60%;
+  font-weight: bold; /* Bold button text */
+  padding: 10px 15px; /* Button padding */
+  border: none; /* Remove border */
+  border-radius: 5px; /* Rounded button edges */
+  cursor: pointer; /* Change cursor to pointer */
+  transition: background-color 0.3s ease, transform 0.2s ease; /* Transition effects */
+  width: 60%; /* Button width */
 }
 
 .send-button:hover {
@@ -197,11 +201,12 @@ textarea#message {
 /* Success message styles with transition */
 .success-message {
   color: #399918; /* Change to your preferred color for success messages */
-  font-weight: bold;
+  font-weight: bold; /* Bold success message */
   margin-top: 20px; /* Space between the form and the success message */
   transition: opacity 0.5s ease; /* Smooth opacity transition */
 }
 
+/* Fade transition for messages */
 .fade-enter-active, .fade-leave-active {
   transition: opacity 0.5s ease; /* Smooth opacity transition */
 }
@@ -209,80 +214,80 @@ textarea#message {
   opacity: 0; /* Fade out effect */
 }
 
+/* Fade-in animation */
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  0% {
+    opacity: 0; /* Start with hidden opacity */
+    transform: translateY(-20px); /* Start from above */
+  }
+  100% {
+    opacity: 1; /* End with visible opacity */
+    transform: translateY(0); /* End at original position */
+  }
 }
 
-/* Styles for Sent Messages Button */
+/* Styles for sent messages button */
 .sent-messages-button {
-  position: absolute;
-  top: 20px; /* Adjust position as needed */
-  right: 20px; /* Adjust position as needed */
-  background: linear-gradient(135deg, rgba(106, 154, 176, 0.8), rgba(58, 109, 140, 0.8)); /* Match with contact box */
-  color: #FFFBE6; /* Text color for visibility */
-  padding: 10px 20px; /* Padding for better clickability */
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 18px; /* Adjust font size */
-  transition: background-color 0.3s ease;
-  z-index: 10; /* Ensure it stays on top */
+  background-color: #4D9C8A; /* Button background color */
+  color: #fff; /* Text color */
+  border: none; /* Remove border */
+  border-radius: 5px; /* Rounded edges */
+  padding: 10px 20px; /* Padding for button */
+  font-size: 18px; /* Font size */
+  cursor: pointer; /* Pointer on hover */
+  transition: background-color 0.3s ease; /* Transition effect */
+  position: fixed; /* Fixed position */
+  top: 20px; /* Distance from the top */
+  right: 20px; /* Distance from the right */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Button shadow */
 }
 
 .sent-messages-button:hover {
-  background-color: #3A6D8C; /* Darker background on hover */
+  background-color: #3B7B6B; /* Darker shade on hover */
 }
 
-/* Styles for Sent Messages Drawer */
+/* Styles for alert sign */
+.alert-sign {
+  background-color: #FF6347; /* Alert background color */
+  border-radius: 50%; /* Round shape */
+  padding: 5px 10px; /* Padding for alert sign */
+  position: absolute; /* Positioning relative to the button */
+  top: 0; /* Align to top */
+  right: 0; /* Align to right */
+  font-weight: bold; /* Bold font for alert */
+}
+
+/* Styles for sent messages drawer */
 .sent-messages-drawer {
-  position: absolute;
-  top: 70px; /* Position below the button */
-  right: 20px; /* Align with the button */
-  background: linear-gradient(135deg, rgba(106, 154, 176, 0.8), rgba(58, 109, 140, 0.8)); /* Match with contact box */
-  padding: 20px;
-  border-radius: 10px; /* Rounded edges */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Slightly darker shadow */
-  color: #FFFBE6; /* Text color for visibility */
-  width: 250px; /* Fixed width for the box */
-  z-index: 10; /* Ensure it stays on top */
+  position: fixed; /* Fixed position */
+  top: 20%; /* Position from top */
+  right: 20px; /* Position from right */
+  width: 300px; /* Width of the drawer */
+  background: rgba(255, 255, 255, 0.9); /* Light background */
+  border-radius: 8px; /* Rounded edges */
+  padding: 15px; /* Padding */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4); /* Shadow effect */
+  z-index: 100; /* Ensure it appears above other elements */
 }
 
+/* Close button for the drawer */
 .close-drawer {
-  background-color: #921A40; /* Change background to red */
-  color: #FFFBE6; /* Text color for visibility */
-  padding: 10px 15px; /* Padding for better clickability */
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 16px; /* Adjust font size */
-  transition: background-color 0.3s ease;
+  background-color: #FF6347; /* Close button background color */
+  color: white; /* Text color */
+  border: none; /* Remove border */
+  border-radius: 5px; /* Rounded edges */
+  padding: 10px 20px; /* Padding */
+  cursor: pointer; /* Pointer on hover */
+  transition: background-color 0.3s ease; /* Transition effect */
 }
 
 .close-drawer:hover {
-  background-color: #C75B7A; /* Darker red background on hover */
+  background-color: #d9534f; /* Darker shade on hover */
 }
 
-/* Adjust alert sign styles */
-.alert-sign {
-  display: inline-block; /* Allows for better positioning */
-  opacity: 1; /* Make sure the count is initially visible */
-  transition: opacity 0.5s ease; /* Smooth opacity transition */
-  font-size: 30px; /* Increase font size for visibility */
-  margin-right: 8px; /* Space between number and text */
-}
-
+/* Animation for fade-out effect */
 .fadeOut {
-  opacity: 0; /* Fade out effect */
-}
-
-/* New styles for sent messages */
-.sent-message {
-  background-color: white; /* White background for sent messages */
-  color: black; /* Black text for visibility */
-  padding: 10px; /* Padding for better readability */
-  margin-bottom: 10px; /* Space between messages */
-  border-radius: 5px; /* Slightly rounded edges */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  opacity: 0; /* Fully transparent */
+  transition: opacity 1s ease; /* Smooth transition */
 }
 </style>
